@@ -35,7 +35,7 @@ To avoid collisions on the file names between several clients, Pdfmagic generate
 **[Q]** Quickly browse through the source code of the Pdfmagic service.
 Where is located the pdf document on the server before being sent back to the client?
 
-# R:
+## R:
 The file is stored in Temporary  folder /tmp
 
 ### 1.2 A container to hold the magic
@@ -64,11 +64,14 @@ The Docker image should be built using `python:2` as its base image and should e
 Convert the logo located [here](https://formulaires.polytechnique.fr/candidatures/commun/assets/img/logo_ip_paris_vertical_blanc.jpg).
 Where is the pdf document on the server?
 
-# R: 
+## R: 
 After submiting the file to the container. We run ``` docker exec -it 1bb905156211 bash ``` to see if there is the image and we obtain  
-```root@1bb905156211:/# cd tmp/
+```
+root@1bb905156211:/# cd tmp/
 root@1bb905156211:/tmp# ls
-e1dcd815-7443-46b0-8d09-073313afd61e.jpg  e1dcd815-7443-46b0-8d09-073313afd61e.pdf```
+e1dcd815-7443-46b0-8d09-073313afd61e.jpg  e1dcd815-7443-46b0-8d09-073313afd61e.pdf 
+
+```
 
 Our next step consists in executing the Pdfmagic container on Kubernetes.
 To this end, we need to proceed in two steps:
