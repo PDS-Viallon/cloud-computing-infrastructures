@@ -35,6 +35,8 @@ To avoid collisions on the file names between several clients, Pdfmagic generate
 **[Q]** Quickly browse through the source code of the Pdfmagic service.
 Where is located the pdf document on the server before being sent back to the client?
 
+The file is stored in Temporary  folder /tmp
+
 ### 1.2 A container to hold the magic
 
 Our first task is to "containerize" the Pdfmagic service.
