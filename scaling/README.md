@@ -198,6 +198,10 @@ What is the average time taken by Pdfmagic to answer?
 Plot the service time distribution of Pdfmagic for 100 successive requests.
 (You may use any tool, e.g., [matplotlib](https://matplotlib.org/users/pyplot_tutorial.html), [gnuplot](www.gnuplot.info), or some spreadsheet.)
 
+Plot :
+
+![](./client/client/plot.png)
+
 ### 4.2 Multiple clients
 
 The next step is to understand the behavior of the system when several clients access it.
@@ -207,6 +211,10 @@ It takes as input 3 parameters: the Pdfmagic host, the number of clients, and th
 
 **[Q]** Plot the service latency when 10 clients push concurrently 100 images.
 What do you observe?
+
+Plot :
+
+![](./client/parallel/plot.png)
 
 ## 5. Scaling out the service **[30']**
 
