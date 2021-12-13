@@ -1,0 +1,11 @@
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/cmd/Get.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/distribution/Strategy.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/SimpleChat.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/cmd/Command.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/distribution/ConsistentHash.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/cmd/CommandFactory.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/cmd/Reply.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/Store.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/StoreImpl.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/cmd/Put.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/kvstore/src/main/java/org/example/kvstore/StoreManager.java

@@ -13,11 +13,24 @@ public class ConsistentHash implements Strategy{
     private Map<Integer,Address> addresses;
 
     public ConsistentHash(View view){
+
+        for(Address member : view.getMembers()){
+            int hash = member.hashCode();
+            ring.add(hash);
+            addresses.put(hash, member);
+        }
     }
 
     @Override
     public Address lookup(Object key){
-      return null;
+
+        int hash = key.hashCode();
+        int hash_address = ring.higher(hash);
+
+        if(addresses.containsKey(hash_address)){
+            return addresses.get(hash_address);
+        }
+        else{ return addresses.get(ring.first());}
     }
 
 }
