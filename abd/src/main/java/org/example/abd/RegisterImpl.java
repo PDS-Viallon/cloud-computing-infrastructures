@@ -30,7 +30,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     private boolean isWritable;
     private Majority quorumSystem;
     private CompletableFuture<V> pending;
-    private ArrayList<Command<V>> readReplyList;
+    private ArrayList<Command<V>> replies;
 
 
     public RegisterImpl(String name) {
@@ -62,7 +62,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
 
     @Override
     public V read() {
-        readReplyList = new ArrayList<Command<V>>();
+        replies = new ArrayList<Command<V>>();
         return execute(factory.newReadRequest());
     }
 
@@ -107,12 +107,12 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
             send(msg.getSrc(), factory.newReadReply(this.value, this.label));
         }
         if (command instanceof ReadReply) {
-            readReplyList.add(command);
+            replies.add(command);
 
-            if(readReplyList.size()>=quorumSystem.quorumSize()){
+            if(replies.size()>=quorumSystem.quorumSize()){
                 int lmax = 0;
                 V vmax = null;
-                for(Command<V> rr : readReplyList ){
+                for(Command<V> rr : replies ){
                     if(lmax<rr.getTag()){
                         lmax = rr.getTag();
                         vmax = rr.getValue();

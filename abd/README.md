@@ -146,7 +146,54 @@ When `execute` is called it should
 2. send the command to a quorum of replicas, then
 3. await for the completion of the future.
 
-**[Task]** Complete the code of the methods `read`, `write` and `execute` in `RegisterImpl`.
+**[Task]** Complete the code of the methods `read`,
+
+```java
+   public V read() {
+        readReplyList = new ArrayList<Command<V>>();
+        return execute(factory.newReadRequest());
+    }
+```
+
+`write`
+
+```java
+    public void write(V v) {
+        writeReplyCounter = 0;
+
+        if(!isWritable) {
+            throw new IllegalStateException();
+        }
+        else {
+            int l = ++max;
+            execute(factory.newWriteRequest(v, l));
+        }
+    }
+```
+
+and `execute`
+
+```java
+    private synchronized V execute(Command<V> cmd){
+        // In `execute`, we simply send the command to a quorum of replicas and not to all (as in the course).
+        // This avoids the need to handle late answers to a request.
+        V v = null;
+       for(Address address : quorumSystem.pickQuorum()){
+           send(address, cmd);
+       }
+
+       try {
+        v  = pending.get();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+        return v;
+    }
+```
+
+in `RegisterImpl`.
+
 If the client executes `write`, but the register is not writable, the method throws a new `IllegalStateException`.
 In `execute`, we simply send the command to a quorum of replicas and not to all (as in the course).
 This avoids the need to handle late answers to a request.
@@ -163,6 +210,50 @@ The `receive` method handles not only (read and write) requests, but also the co
 **[Task]** Add a field named `replies` to store the replies of a command.
 Amend the code of the method `receive` to update the `CompletableFuture` when a quorum of response was received.
 For the moment, we do not implement the read-repair mechanism.
+
+```java
+public void receive(Message msg) {
+
+        Command<V> command = (Command<V>) msg.getObject();
+
+        if (command instanceof ReadRequest) {
+            send(msg.getSrc(), factory.newReadReply(this.value, this.label));
+        }
+        if (command instanceof ReadReply) {
+            replies.add(command);
+
+            if(replies.size()>=quorumSystem.quorumSize()){
+                int lmax = 0;
+                V vmax = null;
+                for(Command<V> rr : replies ){
+                    if(lmax<rr.getTag()){
+                        lmax = rr.getTag();
+                        vmax = rr.getValue();
+                    }
+                }
+                pending.complete(vmax);
+            }
+
+        }
+
+        if (command instanceof WriteRequest) {
+
+            if (command.getTag() > label){
+                label= command.getTag();
+                value= command.getValue();
+            }
+            send(msg.getSrc(),factory.newWriteReply());
+        }
+
+        if (command instanceof WriteReply) {
+            writeReplyCounter ++;
+            if(writeReplyCounter >= quorumSystem.quorumSize()){
+                pending.complete(null);
+            }
+
+        }
+    }
+```
 
 **[Task]** Validate your implementation using the methods `sequential` and `concurrent` in `RegisterTest`.
 
