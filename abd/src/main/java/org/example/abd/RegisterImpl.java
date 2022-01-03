@@ -45,6 +45,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
         max = label;
         channel = new JChannel();
         channel.connect("ChatCluster");
+        channel.setReceiver(this);
         pending = new CompletableFuture<V>();
     }
 
