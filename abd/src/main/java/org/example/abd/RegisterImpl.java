@@ -32,13 +32,8 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     private boolean isWritable;
     private Majority quorumSystem;
     private CompletableFuture<V> pending;
-<<<<<<< HEAD
     private ArrayList<Command<V>> replies;
-=======
-    private CompletableFuture<Pair<V,Integer>> readrepair;
-    private ArrayList<Command<V>> readReplyList;
->>>>>>> 0304cca (read repair)
-
+    //private CompletableFuture<Pair<V,Integer>> readrepair;
 
 
 
@@ -58,7 +53,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
         channel.connect("ChatCluster");
        
         pending = new CompletableFuture<V>();
-        readrepair = new CompletableFuture<Pair<V,Integer>>();
+        //readrepair = new CompletableFuture<Pair<V,Integer>>();
     }
 
     @Override
@@ -129,16 +124,16 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
                         vmax = rr.getValue();
                     }
                 }
-                writeReplyCounter = 0;
-                for(Address address : quorumSystem.pickQuorum()){
-                    send(address, factory.newWriteRequest(vmax, lmax));
-                }
+                // writeReplyCounter = 0;
+                // for(Address address : quorumSystem.pickQuorum()){
+                //     send(address, factory.newWriteRequest(vmax, lmax));
+                // }
          
-                try {
-                    readrepair.get();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                // try {
+                //     readrepair.get();
+                // } catch (Exception e) {
+                //     e.printStackTrace();
+                // }
 
                 pending.complete(vmax);
             }
@@ -158,7 +153,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
             writeReplyCounter ++;
             if(writeReplyCounter >= quorumSystem.quorumSize()){
                 System.out.println("TEST");
-                readrepair.complete(null);
+                // readrepair.complete(null);
                 pending.complete(null);
 
             }
