@@ -31,6 +31,7 @@ public class StoreImpl<K,V> extends ReceiverAdapter implements Store<K,V> {
     public void init() throws Exception{
         channel=new JChannel(); // use the default config, udp.xml
         channel.connect("ChatCluster");
+        channel.setReceiver(this);
         data = new HashMap<K,V>();
         workers = Executors.newCachedThreadPool();
         pending = new CompletableFuture<V>();
