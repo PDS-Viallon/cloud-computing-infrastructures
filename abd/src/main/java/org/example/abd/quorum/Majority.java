@@ -21,13 +21,11 @@ public class Majority {
 
     public List<Address> pickQuorum(){
         List<Address> members = new ArrayList<Address>();
-        List<Address> members_copy_shuffled = view.getMembers();
-        Collections.shuffle(members_copy_shuffled);
+        List<Address> members_copy = view.getMembers();
         for (int i=0; i<quorumSize(); i++){
-            members.add(members_copy_shuffled.get(i));
+            int random_index = (int)Math.random()*members_copy.size();
+            members.add(members_copy.remove(random_index));
         }
         return members;
     }
 }
-
-

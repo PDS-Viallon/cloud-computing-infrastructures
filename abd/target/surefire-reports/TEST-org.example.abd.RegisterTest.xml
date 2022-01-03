@@ -1,78 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="org.example.abd.RegisterTest" time="3.165" errors="2" skipped="0">
+<testsuite tests="2" failures="0" name="org.example.abd.RegisterTest" time="12.731" errors="2" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
-    <property name="java.vm.version" value="11.0.13+8"/>
-    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk/lib"/>
-    <property name="maven.multiModuleProjectDirectory" value="/home/adam/Cours/CSC5004/cloud-computing-infrastructures/abd"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="java.vendor.url" value="https://openjdk.java.net/"/>
+    <property name="java.vm.version" value="17.0.1+1"/>
+    <property name="sun.boot.library.path" value="/usr/local/Cellar/openjdk/17.0.1_1/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="maven.multiModuleProjectDirectory" value="/Users/paulframbot/defi-projects/cloud-computing-infrastructures/abd"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
     <property name="path.separator" value=":"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="sun.os.patch.level" value="unknown"/>
-    <property name="user.country" value="US"/>
+    <property name="user.country" value="FR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/home/adam/Cours/CSC5004/cloud-computing-infrastructures/abd"/>
+    <property name="user.dir" value="/Users/paulframbot/defi-projects/cloud-computing-infrastructures/abd"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
-    <property name="java.runtime.version" value="11.0.13+8"/>
-    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="os.arch" value="amd64"/>
-    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.runtime.version" value="17.0.1+1"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.io.tmpdir" value="/var/folders/1b/f0nkp_ks59b_6991tz2tbs_r0000gn/T/"/>
     <property name="line.separator" value="
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="os.name" value="Linux"/>
-    <property name="classworlds.conf" value="/opt/maven/bin/m2.conf"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="classworlds.conf" value="/usr/local/Cellar/maven/3.8.4/libexec/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
-    <property name="maven.conf" value="/opt/maven/conf"/>
+    <property name="java.library.path" value="/Users/paulframbot/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="maven.conf" value="/usr/local/Cellar/maven/3.8.4/libexec/conf"/>
     <property name="jdk.debug" value="release"/>
-    <property name="java.class.version" value="55.0"/>
+    <property name="java.class.version" value="61.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="5.15.12-arch1-1"/>
-    <property name="library.jansi.path" value="/opt/maven/lib/jansi-native"/>
-    <property name="user.home" value="/home/adam"/>
+    <property name="os.version" value="12.0.1"/>
+    <property name="library.jansi.path" value="/usr/local/Cellar/maven/3.8.4/libexec/lib/jansi-native"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="user.home" value="/Users/paulframbot"/>
     <property name="user.timezone" value="Europe/Paris"/>
-    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
     <property name="file.encoding" value="UTF-8"/>
-    <property name="java.specification.version" value="11"/>
-    <property name="user.name" value="adam"/>
-    <property name="java.class.path" value="/opt/maven/boot/plexus-classworlds-2.6.0.jar"/>
-    <property name="java.vm.specification.version" value="11"/>
+    <property name="java.specification.version" value="17"/>
+    <property name="user.name" value="paulframbot"/>
+    <property name="java.class.path" value="/usr/local/Cellar/maven/3.8.4/libexec/boot/plexus-classworlds-2.6.0.jar"/>
+    <property name="java.vm.specification.version" value="17"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean install"/>
-    <property name="java.home" value="/usr/lib/jvm/java-11-openjdk"/>
-    <property name="user.language" value="en"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher install"/>
+    <property name="java.home" value="/usr/local/Cellar/openjdk/17.0.1_1/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="user.language" value="fr"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
-    <property name="java.vm.info" value="mixed mode"/>
-    <property name="java.version" value="11.0.13"/>
-    <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="/opt/maven"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.version" value="17.0.1"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="sun.stderr.encoding" value="UTF-8"/>
+    <property name="maven.home" value="/usr/local/Cellar/maven/3.8.4/libexec"/>
     <property name="file.separator" value="/"/>
     <property name="java.version.date" value="2021-10-19"/>
-    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
-    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="sun.cpu.isalist" value=""/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="sun.stdout.encoding" value="UTF-8"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase classname="org.example.abd.RegisterTest" name="sequential" time="2.978">
-    <error type="java.lang.UnsupportedOperationException">java.lang.UnsupportedOperationException
-	at java.base/java.util.AbstractList.set(AbstractList.java:136)
-	at java.base/java.util.Collections.swap(Collections.java:501)
-	at java.base/java.util.Collections.shuffle(Collections.java:462)
-	at java.base/java.util.Collections.shuffle(Collections.java:429)
-	at org.example.abd.quorum.Majority.pickQuorum(Majority.java:25)
+  <testcase classname="org.example.abd.RegisterTest" name="sequential" time="6.65">
+    <error message="Cannot invoke &quot;org.example.abd.quorum.Majority.pickQuorum()&quot; because &quot;this.quorumSystem&quot; is null" type="java.lang.NullPointerException">java.lang.NullPointerException: Cannot invoke &quot;org.example.abd.quorum.Majority.pickQuorum()&quot; because &quot;this.quorumSystem&quot; is null
 	at org.example.abd.RegisterImpl.execute(RegisterImpl.java:83)
 	at org.example.abd.RegisterImpl.read(RegisterImpl.java:63)
 	at org.example.abd.RegisterTest.sequential(RegisterTest.java:23)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
@@ -90,9 +87,9 @@
 	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
 	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
@@ -101,52 +98,27 @@
 </error>
     <system-out>
 -------------------------------------------------------------------
-GMS: address=archie-15553, cluster=ChatCluster, physical address=fe80:0:0:0:723:9f02:227f:dfa3%2:58429
+GMS: address=MacBook-Pro-de-Paul-3-54317, cluster=ChatCluster, physical address=fe80:0:0:0:e23e:4375:cc72:d571%20:52430
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
-GMS: address=archie-26469, cluster=ChatCluster, physical address=fe80:0:0:0:723:9f02:227f:dfa3%2:32932
+GMS: address=MacBook-Pro-de-Paul-3-62051, cluster=ChatCluster, physical address=fe80:0:0:0:e23e:4375:cc72:d571%20:53896
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
-GMS: address=archie-7056, cluster=ChatCluster, physical address=fe80:0:0:0:723:9f02:227f:dfa3%2:56745
+GMS: address=MacBook-Pro-de-Paul-3-2513, cluster=ChatCluster, physical address=fe80:0:0:0:e23e:4375:cc72:d571%20:63017
 -------------------------------------------------------------------
 </system-out>
-    <system-err>Jan 03, 2022 2:40:59 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:40:59 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-Jan 03, 2022 2:40:59 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:40:59 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-</system-err>
   </testcase>
-  <testcase classname="org.example.abd.RegisterTest" name="concurrent" time="0.187">
+  <testcase classname="org.example.abd.RegisterTest" name="concurrent" time="6.081">
     <error message="java.lang.IllegalStateException" type="java.util.concurrent.ExecutionException">java.util.concurrent.ExecutionException: java.lang.IllegalStateException
 	at java.base/java.util.concurrent.FutureTask.report(FutureTask.java:122)
 	at java.base/java.util.concurrent.FutureTask.get(FutureTask.java:191)
 	at org.example.abd.RegisterTest.concurrent(RegisterTest.java:45)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
@@ -164,9 +136,9 @@ WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB
 	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
 	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
@@ -178,50 +150,25 @@ Caused by: java.lang.IllegalStateException
 	at org.example.abd.RegisterTest$Worker.call(RegisterTest.java:72)
 	at org.example.abd.RegisterTest$Worker.call(RegisterTest.java:51)
 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at java.base/java.lang.Thread.run(Thread.java:829)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
 </error>
     <system-out>
 -------------------------------------------------------------------
-GMS: address=archie-43952, cluster=ChatCluster, physical address=fe80:0:0:0:723:9f02:227f:dfa3%2:46651
+GMS: address=MacBook-Pro-de-Paul-3-53648, cluster=ChatCluster, physical address=fe80:0:0:0:e23e:4375:cc72:d571%20:56035
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
-GMS: address=archie-20570, cluster=ChatCluster, physical address=fe80:0:0:0:723:9f02:227f:dfa3%2:39402
+GMS: address=MacBook-Pro-de-Paul-3-63582, cluster=ChatCluster, physical address=fe80:0:0:0:e23e:4375:cc72:d571%20:51379
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
-GMS: address=archie-16079, cluster=ChatCluster, physical address=fe80:0:0:0:723:9f02:227f:dfa3%2:57892
+GMS: address=MacBook-Pro-de-Paul-3-21161, cluster=ChatCluster, physical address=fe80:0:0:0:e23e:4375:cc72:d571%20:63870
 -------------------------------------------------------------------
-w - INV - W(-1460199555)
+w - INV - W(-635240429)
 r0 - INV - R()
 r1 - INV - R()
 </system-out>
-    <system-err>Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the send buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
-Jan 03, 2022 2:41:01 PM org.jgroups.protocols.UDP setBufferSize
-WARNING: JGRP000015: the receive buffer of socket MulticastSocket was set to 5MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
-</system-err>
   </testcase>
 </testsuite>
