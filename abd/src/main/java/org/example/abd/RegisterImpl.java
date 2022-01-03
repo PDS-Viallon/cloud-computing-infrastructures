@@ -112,7 +112,6 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
                         vmax = rr.getValue();
                     }
                 }
-
                 pending.complete(vmax);
             }
 
