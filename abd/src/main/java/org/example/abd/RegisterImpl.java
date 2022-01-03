@@ -19,8 +19,8 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     private CommandFactory<V> factory;
     private JChannel channel;
 
-    private long label;
-    private long max;
+    private int label;
+    private int max;
     private V value;
     private boolean isWritable;
     private Majority quorumSystem;
@@ -35,7 +35,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     public void init(boolean isWritable) throws Exception{
         this.isWritable=isWritable;
         value = null;
-        label = (int)(System.currentTimeMillis());
+        label =0;
         max = label;
         channel = new JChannel();
         channel.connect("ChatCluster");
@@ -52,34 +52,38 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
 
     @Override
     public V read() {
-        return value;
+        return execute(factory.newReadRequest());
     }
 
     @Override
     public void write(V v) {
         // If the client executes `write`, but the register is not writable, the method throws a new `IllegalStateException`.
+
+
         if(isWritable) {
             throw new IllegalStateException();
         }
-        else {    
-            execute(factory.newWriteRequest(v, (int)(System.currentTimeMillis())));
+        else {
+            int l = ++max;    
+            execute(factory.newWriteRequest(v, l));
         }
     }
 
     private synchronized V execute(Command cmd){    
         // In `execute`, we simply send the command to a quorum of replicas and not to all (as in the course).
         // This avoids the need to handle late answers to a request.
+        V v = null; 
        for(Address address : quorumSystem.pickQuorum()){
            send(address, cmd);
        }
 
        try {
-        value  = pending.get();
+        v  = pending.get();
     } catch (Exception e) {
         e.printStackTrace();
     } 
         
-        return null;
+        return v;
     }
 
     // Message handlers
