@@ -1,5 +1,8 @@
 package org.example.abd;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
 import org.example.abd.cmd.Command;
 import org.example.abd.cmd.CommandFactory;
 import org.example.abd.quorum.Majority;
@@ -21,6 +24,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     private V value;
     private boolean isWritable;
     private Majority quorumSystem;
+    private CompletableFuture<V> pending;
 
 
     public RegisterImpl(String name) {
@@ -35,6 +39,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
         max = label;
         channel = new JChannel();
         channel.connect("ChatCluster");
+        pending = new CompletableFuture<V>();
     }
 
     @Override
@@ -53,8 +58,8 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     @Override
     public void write(V v) {
         // If the client executes `write`, but the register is not writable, the method throws a new `IllegalStateException`.
-        if isWritable {
-            throw IllegalStateException;
+        if(isWritable) {
+            throw new IllegalStateException();
         }
         else {    
             execute(factory.newWriteRequest(v, (int)(System.currentTimeMillis())));
@@ -64,6 +69,15 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     private synchronized V execute(Command cmd){    
         // In `execute`, we simply send the command to a quorum of replicas and not to all (as in the course).
         // This avoids the need to handle late answers to a request.
+       for(Address address : quorumSystem.pickQuorum()){
+           send(address, cmd);
+       }
+
+       try {
+        value  = pending.get();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } 
         
         return null;
     }
