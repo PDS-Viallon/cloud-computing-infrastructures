@@ -263,6 +263,9 @@ As seen in the course, the read-repair mechanism is necessary when the writer fa
 
 **[Task]** What type of inconsistencies may arise in a scenario where the writer fails?
 
+It may happen that a writer writes a new value to less than a quorum and fails before sending the value to everybody. We thus have few (less than a quorum) registers with a latest value.
+A first reader can read this latest value and thus decides it as the one actually returned while a second reader can read a quorum which does not contain this latest value. This is an inconsitency!
+
 **[Task]** Implement the read-repair mechanism of ABD.
 
 _(hint)_
