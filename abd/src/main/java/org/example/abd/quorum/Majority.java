@@ -4,6 +4,7 @@ import org.jgroups.Address;
 import org.jgroups.View;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class Majority {
@@ -19,7 +20,7 @@ public class Majority {
     }
 
     public List<Address> pickQuorum(){
-        List<Address> members = new List<Address>();
+        List<Address> members = new ArrayList<Address>();
         List<Address> members_copy_shuffled = view.getMembers();
         Collections.shuffle(members_copy_shuffled);
         for (int i=0; i<quorumSize(); i++){

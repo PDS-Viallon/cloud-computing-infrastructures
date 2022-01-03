@@ -1,0 +1,10 @@
+org/example/abd/RegisterImpl.class
+org/example/abd/cmd/ReadReply.class
+org/example/abd/cmd/CommandFactory.class
+org/example/abd/quorum/Majority.class
+org/example/abd/cmd/ReadRequest.class
+org/example/abd/cmd/WriteReply.class
+org/example/abd/cmd/WriteRequest.class
+org/example/abd/Manager.class
+org/example/abd/cmd/Command.class
+org/example/abd/Register.class

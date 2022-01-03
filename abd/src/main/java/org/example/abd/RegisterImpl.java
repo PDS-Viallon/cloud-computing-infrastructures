@@ -2,6 +2,7 @@ package org.example.abd;
 
 import org.example.abd.cmd.Command;
 import org.example.abd.cmd.CommandFactory;
+import org.example.abd.quorum.Majority;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
@@ -15,9 +16,10 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     private CommandFactory<V> factory;
     private JChannel channel;
 
-    private int label;
-    private int max;
+    private long label;
+    private long max;
     private V value;
+    private Majority quorumSystem;
 
 
     public RegisterImpl(String name) {
@@ -26,15 +28,18 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     }
 
     public void init(boolean isWritable) throws Exception{
-        value = new V();
-        label = SystemClockFactory.getDatetime();
-        max = label
+        value = null;
+        label = System.currentTimeMillis();
+        max = label;
         channel = new JChannel();
         channel.connect("ChatCluster");
     }
 
     @Override
-    public void viewAccepted(View view) {}
+    public void viewAccepted(View view) {
+        quorumSystem = new Majority(view);
+
+    }
 
     // Client part
 
