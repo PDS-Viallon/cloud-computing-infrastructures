@@ -1,10 +1,12 @@
 package org.example.abd;
 
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import org.example.abd.cmd.Command;
 import org.example.abd.cmd.CommandFactory;
+import org.example.abd.cmd.ReadReply;
+import org.example.abd.cmd.ReadRequest;
 import org.example.abd.quorum.Majority;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
@@ -25,6 +27,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     private boolean isWritable;
     private Majority quorumSystem;
     private CompletableFuture<V> pending;
+    private ArrayList<Command<V>> readReplyList;
 
 
     public RegisterImpl(String name) {
@@ -52,6 +55,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
 
     @Override
     public V read() {
+        readReplyList = new ArrayList<Command<V>>();
         return execute(factory.newReadRequest());
     }
 
@@ -69,7 +73,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
         }
     }
 
-    private synchronized V execute(Command cmd){    
+    private synchronized V execute(Command<V> cmd){    
         // In `execute`, we simply send the command to a quorum of replicas and not to all (as in the course).
         // This avoids the need to handle late answers to a request.
         V v = null; 
@@ -90,19 +94,36 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
 
     @Override
     public void receive(Message msg) {
-        if (msg.get(0) == 'Write') {
-            if (l > label){
-                label = msg.get(1).l;
-                value = msg.buf.v            
+
+        Command<V> command = (Command<V>) msg.getObject();
+
+        if (command instanceof ReadRequest) {
+            send(msg.getSrc(), factory.newReadReply(this.value, this.label));
+        }
+        if (command instanceof ReadReply) {
+            readReplyList.add(command);
+
+            if(readReplyList.size()>=quorumSystem.quorumSize()){
+                int lmax = 0;
+                V vmax = null;
+                for(Command rr : readReplyList ){
+                    if(lmax<rr.getTag()){
+                        lmax=rr.getTag();
+                        vmax = rr.getValue();
+                    }
+                }
+
+                pending.complete(vmax);
             }
-            send(msg.src,"Ack")
+
+           
         }
         if (msg.get(0) == 'Read') {
             send(msg.src,(label, value))
         }        
     }
 
-    private void send(Address dst, Command command) {
+    private void send(Address dst, Command<V> command) {
         try {
             Message message = new Message(dst,channel.getAddress(), command);
             channel.send(message);
