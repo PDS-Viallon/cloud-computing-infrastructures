@@ -2,7 +2,9 @@ package org.example.abd;
 
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.example.abd.cmd.Command;
 import org.example.abd.cmd.CommandFactory;
 import org.example.abd.cmd.ReadReply;
@@ -30,7 +32,15 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     private boolean isWritable;
     private Majority quorumSystem;
     private CompletableFuture<V> pending;
+<<<<<<< HEAD
     private ArrayList<Command<V>> replies;
+=======
+    private CompletableFuture<Pair<V,Integer>> readrepair;
+    private ArrayList<Command<V>> readReplyList;
+>>>>>>> 0304cca (read repair)
+
+
+
 
 
     public RegisterImpl(String name) {
@@ -48,6 +58,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
         channel.connect("ChatCluster");
        
         pending = new CompletableFuture<V>();
+        readrepair = new CompletableFuture<Pair<V,Integer>>();
     }
 
     @Override
@@ -118,6 +129,17 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
                         vmax = rr.getValue();
                     }
                 }
+                writeReplyCounter = 0;
+                for(Address address : quorumSystem.pickQuorum()){
+                    send(address, factory.newWriteRequest(vmax, lmax));
+                }
+         
+                try {
+                    readrepair.get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 pending.complete(vmax);
             }
            
@@ -135,7 +157,10 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
         if (command instanceof WriteReply) {
             writeReplyCounter ++;
             if(writeReplyCounter >= quorumSystem.quorumSize()){
+                System.out.println("TEST");
+                readrepair.complete(null);
                 pending.complete(null);
+
             }
            
         }
