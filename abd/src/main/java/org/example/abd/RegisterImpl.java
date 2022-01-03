@@ -15,12 +15,23 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     private CommandFactory<V> factory;
     private JChannel channel;
 
+    private int label;
+    private int max;
+    private V value;
+
+
     public RegisterImpl(String name) {
         this.name = name;
         this.factory = new CommandFactory<>();
     }
 
-    public void init(boolean isWritable) throws Exception{}
+    public void init(boolean isWritable) throws Exception{
+        value = new V();
+        label = SystemClockFactory.getDatetime();
+        max = label
+        channel = new JChannel();
+        channel.connect("ChatCluster");
+    }
 
     @Override
     public void viewAccepted(View view) {}

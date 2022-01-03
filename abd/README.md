@@ -15,7 +15,7 @@ This mechanism is later added to attain linearizability in case of failures.
 
 ## 1. Provided code
 
-An initial code base for ABD is available  under the `src` directory.
+An initial code base for ABD is available under the `src` directory.
 The management of dependencies relies on Apache Maven and a `pom.xml` file is available at the root of the project.
 This section offers an overview of this code base.
 
@@ -58,17 +58,38 @@ The logging mechanism is implemented in the parent class named `Worker`.
 
 ## 2. The ABD algorithm
 
-### 3.1 Initialization 
+### 3.1 Initialization
 
 The very first step of every implementation consists in initializing the data structures that are used later on.
-ABD makes uses of two variables at each process: 
-* `value` stores the content of the register, and 
-* `label` is the timestamp attached to this content (it marks the recency of the content).
-In addition, at the writer, ABD uses the variable `max` to store the highest label used so far.
+ABD makes uses of two variables at each process:
+
+- `value` stores the content of the register, and
+- `label` is the timestamp attached to this content (it marks the recency of the content).
+  In addition, at the writer, ABD uses the variable `max` to store the highest label used so far.
 
 **[Task]** Add the `value`, `label` and `max` fields to `RegisterImpl`.
 In the code of the `init` method, properly set-up these variables.
-Then, connect to the JChannel and register the `RegisterImpl` instance as a listener of the channel. 
+Then, connect to the JChannel and register the `RegisterImpl` instance as a listener of the channel.
+
+```java
+    private int label;
+    private int max;
+    private V value;
+
+
+    public RegisterImpl(String name) {
+        this.name = name;
+        this.factory = new CommandFactory<>();
+    }
+
+    public void init(boolean isWritable) throws Exception{
+        value = new V();
+        label = SystemClockFactory.getDatetime();
+        max = label
+        channel = new JChannel();
+        channel.connect("ChatCluster");
+    }
+```
 
 ### 3.2 Quorum system
 
@@ -79,21 +100,23 @@ This is simply a set of n/2+1 processes - where n is the total number of process
 
 The `Majority` class contains a skeleton for a quorum system using majority quorums.
 It relies on the `Address` class in JGroups to identify a process.
-The class `Majority` contains 
-* a method to return the size of majority, and 
-* a method to pick a *random* majority among all the nodes in the system.
+The class `Majority` contains
+
+- a method to return the size of majority, and
+- a method to pick a _random_ majority among all the nodes in the system.
 
 **[Task]** Complete the `Majority` class.
 
 **[Task]** Create a field `quorumSystem` in `RegisterImpl`.
-Upon a new view change, initialize this field by creating a new instance of `Majority`. 
+Upon a new view change, initialize this field by creating a new instance of `Majority`.
 
 ### 3.3 Sending and replying to requests
 
 In ABD, every client request (read or write) starts by sending some message to a quorum of replicas.
 To leverage this observation, the provided code contains a method named `execute`.
 This method takes as input a command forged in either the `read` or `write` method of `RegisterImpl`.
-When `execute` is called it should 
+When `execute` is called it should
+
 1. create a `CompletableFuture` to hold the result of the command,
 2. send the command to a quorum of replicas, then
 3. await for the completion of the future.
@@ -105,10 +128,10 @@ This avoids the need to handle late answers to a request.
 
 Replicas should now answer to requests by applying the core of the ABD algorithm.
 This is the `receive` method that is in charge of executing this logic.
- 
+
 **[Task]** Study carefully the pseudo-code of ABD provided in the course.
 
-**[Task]** Implement the logic of the algorithm when a request is received. 
+**[Task]** Implement the logic of the algorithm when a request is received.
 
 The `receive` method handles not only (read and write) requests, but also the corresponding replies.
 
@@ -124,9 +147,9 @@ As seen in the course, the read-repair mechanism is necessary when the writer fa
 
 **[Task]** What type of inconsistencies may arise in a scenario where the writer fails?
 
-**[Task]** Implement the read-repair mechanism of ABD. 
+**[Task]** Implement the read-repair mechanism of ABD.
 
-*(hint)* 
-To code this part of the algorithm, we advice you to use a `Pair` object in the value of the `CompletableFuture` (this class is part of the apache-commons-lang3 library). 
-The pair should store the value and its corresponding label computed during the first phase of a read. 
+_(hint)_
+To code this part of the algorithm, we advice you to use a `Pair` object in the value of the `CompletableFuture` (this class is part of the apache-commons-lang3 library).
+The pair should store the value and its corresponding label computed during the first phase of a read.
 Both objects are used during the second phase of the read to repair an incomplete write.
