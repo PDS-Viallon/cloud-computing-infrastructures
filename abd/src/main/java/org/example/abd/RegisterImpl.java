@@ -85,7 +85,18 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     // Message handlers
 
     @Override
-    public void receive(Message msg) {}
+    public void receive(Message msg) {
+        if (msg.get(0) == 'Write') {
+            if (l > label){
+                label = msg.get(1).l;
+                value = msg.buf.v            
+            }
+            send(msg.src,"Ack")
+        }
+        if (msg.get(0) == 'Read') {
+            send(msg.src,(label, value))
+        }        
+    }
 
     private void send(Address dst, Command command) {
         try {
@@ -95,5 +106,4 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
             e.printStackTrace();
         }
     }
-
 }
