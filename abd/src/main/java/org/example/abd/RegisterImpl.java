@@ -7,6 +7,8 @@ import org.example.abd.cmd.Command;
 import org.example.abd.cmd.CommandFactory;
 import org.example.abd.cmd.ReadReply;
 import org.example.abd.cmd.ReadRequest;
+import org.example.abd.cmd.WriteReply;
+import org.example.abd.cmd.WriteRequest;
 import org.example.abd.quorum.Majority;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
@@ -24,6 +26,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     private int label;
     private int max;
     private V value;
+    private int writeReplyCounter = 0;
     private boolean isWritable;
     private Majority quorumSystem;
     private CompletableFuture<V> pending;
@@ -61,8 +64,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
 
     @Override
     public void write(V v) {
-        // If the client executes `write`, but the register is not writable, the method throws a new `IllegalStateException`.
-
+        writeReplyCounter = 0;
 
         if(isWritable) {
             throw new IllegalStateException();
@@ -108,19 +110,32 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
                 V vmax = null;
                 for(Command rr : readReplyList ){
                     if(lmax<rr.getTag()){
-                        lmax=rr.getTag();
-                        vmax = rr.getValue();
+                        lmax = rr.getTag();
+                        vmax = (V)rr.getValue();
                     }
                 }
 
                 pending.complete(vmax);
             }
-
            
         }
-        if (msg.get(0) == 'Read') {
-            send(msg.src,(label, value))
-        }        
+
+        if (command instanceof WriteRequest) {
+
+            if (command.getTag() > label){
+                label= command.getTag();
+                value= command.getValue(); 
+            }
+            send(msg.getSrc(),factory.newWriteReply());
+        }  
+
+        if (command instanceof WriteReply) {
+            writeReplyCounter ++;
+            if(writeReplyCounter >= quorumSystem.quorumSize()){
+                pending.complete(null);
+            }
+           
+        }
     }
 
     private void send(Address dst, Command<V> command) {
