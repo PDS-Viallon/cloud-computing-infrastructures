@@ -110,6 +110,31 @@ The class `Majority` contains
 **[Task]** Create a field `quorumSystem` in `RegisterImpl`.
 Upon a new view change, initialize this field by creating a new instance of `Majority`.
 
+```java
+public class Majority {
+
+    private View view;
+
+    public Majority(View view){
+        this.view = view;
+    }
+
+    public int quorumSize(){
+        return view.getMembers().size()/2 +1;
+    }
+
+    public List<Address> pickQuorum(){
+        List<Address> members = new ArrayList<Address>();
+        List<Address> members_copy_shuffled = view.getMembers();
+        Collections.shuffle(members_copy_shuffled);
+        for (int i=0; i<quorumSize(); i++){
+            members.add(members_copy_shuffled.get(i));
+        }
+        return members;
+    }
+}
+```
+
 ### 3.3 Sending and replying to requests
 
 In ABD, every client request (read or write) starts by sending some message to a quorum of replicas.

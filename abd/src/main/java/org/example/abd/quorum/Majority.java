@@ -28,8 +28,6 @@ public class Majority {
         }
         return members;
     }
-
-
 }
 
 
