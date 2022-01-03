@@ -44,13 +44,16 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
         label =0;
         max = label;
         channel = new JChannel();
-        channel.connect("ChatCluster");
         channel.setReceiver(this);
+        channel.connect("ChatCluster");
+       
         pending = new CompletableFuture<V>();
     }
 
     @Override
     public void viewAccepted(View view) {
+        // System.out.println("Hello "+ channel.getAddress());
+
         quorumSystem = new Majority(view);
 
     }
@@ -67,7 +70,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
     public void write(V v) {
         writeReplyCounter = 0;
 
-        if(isWritable) {
+        if(!isWritable) {
             throw new IllegalStateException();
         }
         else {
@@ -109,10 +112,10 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
             if(readReplyList.size()>=quorumSystem.quorumSize()){
                 int lmax = 0;
                 V vmax = null;
-                for(Command rr : readReplyList ){
+                for(Command<V> rr : readReplyList ){
                     if(lmax<rr.getTag()){
                         lmax = rr.getTag();
-                        vmax = (V)rr.getValue();
+                        vmax = rr.getValue();
                     }
                 }
                 pending.complete(vmax);

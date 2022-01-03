@@ -20,12 +20,27 @@ public class Majority {
     }
 
     public List<Address> pickQuorum(){
-        List<Address> members = new ArrayList<Address>();
-        List<Address> members_copy = view.getMembers();
-        for (int i=0; i<quorumSize(); i++){
-            int random_index = (int)Math.random()*members_copy.size();
-            members.add(members_copy.remove(random_index));
+
+        // System.out.println("TEST");
+
+        List<Address> members = view.getMembers();
+
+        ArrayList<Integer> randomIndex =new ArrayList<Integer>();
+
+        for(int i=0; i<members.size(); ++i){
+            randomIndex.add(i);
         }
-        return members;
+
+        Collections.shuffle(randomIndex);
+
+        ArrayList<Address> ret = new ArrayList<Address>();
+
+        for(int i : randomIndex){
+            ret.add(members.get(i));
+        }
+
+
+
+        return  ret;
     }
 }

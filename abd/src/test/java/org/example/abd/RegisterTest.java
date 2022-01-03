@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 public class RegisterTest {
 
     @Test
-    public void sequential() {
+    public void sequential() throws InterruptedException {
         Manager manager = new Manager();
         Register<Integer> copy1 = manager.newRegister(true);
         Register<Integer> copy2 = manager.newRegister();
@@ -44,7 +44,7 @@ public class RegisterTest {
         for (Future<Void> future : futures){
             future.get();
         }
-    }
+   }
 
     //
 
