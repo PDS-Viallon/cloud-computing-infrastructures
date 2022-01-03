@@ -257,6 +257,9 @@ public void receive(Message msg) {
 
 **[Task]** Validate your implementation using the methods `sequential` and `concurrent` in `RegisterTest`.
 
+![270245348_314255957271000_8312134730116242143_n](https://user-images.githubusercontent.com/61706817/147945925-bb452248-6436-47b0-9ddc-8ecd128a0d59.png)
+
+
 ## 4. Repairing incomplete writes
 
 As seen in the course, the read-repair mechanism is necessary when the writer fails in the middle of a write operation.
