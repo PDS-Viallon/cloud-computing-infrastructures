@@ -23,8 +23,7 @@ class Election:
 
         # Start election
         zk.get_children("/master", self.ballot)
-        self.node = zk.create(path+"/election", "",
-            ephemeral=True, sequence=True)        
+        self.node = zk.create(path+"/election", b"", ephemeral=True, sequence=True)        
             
         
     def is_leading(self):
