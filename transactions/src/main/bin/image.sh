@@ -6,9 +6,8 @@ else
     TAG="$1"
 fi
 
-DOCKER_USER=$(docker info |
-    grep Username |
-    awk '{print $2}')
+DOCKER_USER="paulfrmbt"
+
 if [ -z "${DOCKER_USER}" ]; then
     DOCKER_USER=0track
 fi
@@ -29,4 +28,4 @@ docker build \
     -t "${IMAGE}" -f "${DOCKERFILE}" .
 
 # push image
-# xdocker push "${IMAGE}"
+docker push "${IMAGE}"
