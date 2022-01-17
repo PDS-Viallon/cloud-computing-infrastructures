@@ -1,6 +1,6 @@
-/Users/paulframbot/defi-projects/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/Bank.java
-/Users/paulframbot/defi-projects/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/base/BaseBank.java
-/Users/paulframbot/defi-projects/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/BankFactory.java
-/Users/paulframbot/defi-projects/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/distributed/DistributedBank.java
-/Users/paulframbot/defi-projects/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/Server.java
-/Users/paulframbot/defi-projects/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/Account.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/BankFactory.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/Account.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/base/BaseBank.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/Server.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/Bank.java
+/home/adam/Cours/CSC5004/cloud-computing-infrastructures/transactions/src/main/java/eu/tsp/transactions/distributed/DistributedBank.java

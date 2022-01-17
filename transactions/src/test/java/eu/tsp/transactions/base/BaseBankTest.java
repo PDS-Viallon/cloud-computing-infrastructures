@@ -5,6 +5,8 @@ import eu.tsp.transactions.BankFactory;
 import org.junit.Test;
 import org.junit.Before;
 
+import javax.transaction.*;
+
 import static org.junit.Assert.assertEquals;
 
 public class BaseBankTest{
@@ -28,13 +30,13 @@ public class BaseBankTest{
   }
 
   @Test(expected=IllegalArgumentException.class)
-  public void performTransferWrongArgument(){
+  public void performTransferWrongArgument() throws HeuristicRollbackException, SystemException, HeuristicMixedException, NotSupportedException, RollbackException {
     bank.performTransfer(-1,2,100);
   }
   
   
   @Test
-  public void simpleTransfer(){
+  public void simpleTransfer() throws HeuristicRollbackException, SystemException, HeuristicMixedException, NotSupportedException, RollbackException {
     bank.performTransfer(1,2,100);
     assertEquals(bank.getBalance(1)+bank.getBalance(2),0);
   }
