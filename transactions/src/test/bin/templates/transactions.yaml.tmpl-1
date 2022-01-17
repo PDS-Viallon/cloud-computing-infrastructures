@@ -24,6 +24,6 @@ spec:
     - name: BUCKET
       value: "jgroups"
     - name: BUCKET_KEY
-      value: "undefined"
+      value: "GOOG44ASZZNNCELOKRBQLBC2"
     - name: BUCKET_SECRET
-      value: "undefined"
+      value: "A7i/2Byffb7YuR6xGezfFj+hGGHeHsORRtXetXxI"

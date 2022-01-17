@@ -34,7 +34,7 @@ public class DistributedBank implements Bank{
     builder.clustering().cacheMode(CacheMode.DIST_SYNC);
 
     DefaultCacheManager cacheManager = new DefaultCacheManager(gbuilder.build());
-    accounts = cacheManager.administration().withFlags(CacheContainerAdmin.AdminFlag.PERMANENT).getOrCreateCache("myCache", builder.build());
+    accounts = cacheManager.getCache();
   }
   
   @Override
