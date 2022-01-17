@@ -26,6 +26,12 @@ public class BaseBankTest{
   public void getBalanceWrongAccount(){
     bank.getBalance(-1);
   }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void performTransferWrongArgument(){
+    bank.performTransfer(-1,2,100);
+  }
+  
   
   @Test
   public void simpleTransfer(){
