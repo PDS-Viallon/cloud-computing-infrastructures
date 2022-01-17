@@ -10,6 +10,7 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.xa.XAException;
 
 import org.infinispan.Cache;
+import org.infinispan.commons.api.CacheContainerAdmin;
 import org.infinispan.configuration.cache.CacheMode;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
@@ -22,40 +23,62 @@ import eu.tsp.transactions.Bank;
 import eu.tsp.transactions.Account;
 
 public class DistributedBank implements Bank{
+  private Cache<Integer, Account> accounts;
 
   public DistributedBank(){
-    // FIXME
-  }
 
+    GlobalConfigurationBuilder gbuilder = GlobalConfigurationBuilder.defaultClusteredBuilder();
+    gbuilder.transport().addProperty("configurationFile", "jgroups.xml");
+
+    ConfigurationBuilder builder = new ConfigurationBuilder();
+    builder.clustering().cacheMode(CacheMode.DIST_SYNC);
+
+    DefaultCacheManager cacheManager = new DefaultCacheManager(gbuilder.build());
+    accounts = cacheManager.administration().withFlags(CacheContainerAdmin.AdminFlag.PERMANENT).getOrCreateCache("myCache", builder.build());
+  }
+  
   @Override
   public void createAccount(int id) throws IllegalArgumentException{
-    // FIXME
+    if (this.accounts.containsKey(id)) {
+      throw new IllegalArgumentException("account already existing: "+id);
+    }
+    accounts.put(id, new Account(id,0));
   }
 
   @Override
   public int getBalance(int id) throws IllegalArgumentException{
-    // FIXME
-    return 0;
+    if (!this.accounts.containsKey(id)) {
+      throw new IllegalArgumentException("account not existing: "+id);
+    }
+    Account account = accounts.get(id);
+    return account.getBalance();
   }
 
   @Override
-  public void performTransfer(int from, int to, int amount){ 
-    // FIXME
+  public void performTransfer(int from, int to, int amount){
+    if (!this.accounts.containsKey(from)) {
+      throw new IllegalArgumentException("account not existing: "+from);
+    }
+    
+    if (!this.accounts.containsKey(to)) {
+      throw new IllegalArgumentException("account not existing: "+to);
+    }
+
+    Account fromAccount = accounts.get(from);
+    Account toAccount = accounts.get(to);
+    
+    fromAccount.setBalance(fromAccount.getBalance()-amount);
+    toAccount.setBalance(toAccount.getBalance()+amount);
   }
 
   @Override
   public void clear(){
-    // FIXME
+    this.accounts.clear();
   }
   
   @Override
-  public void open(){
-    // FIXME
-  }
+  public void open(){}
 
   @Override
-  public void close(){
-    // FIXME
-  }
-   
+  public void close(){}
 }
