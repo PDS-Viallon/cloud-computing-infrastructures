@@ -45,13 +45,13 @@ public class Server {
       });
 
     put("/:from/:to/:amount", (req, res) -> {
-      int from = Integer.parseInt(req.params("from"));
-      int to = Integer.parseInt(req.params("to"));
-      int amount = Integer.parseInt(req.params("amount"));
-      LOG.info("performTransfer(from,to,amount)");
-        bank.performTransfer(from, to, amount);
-      return "OK";
-          });
+  int from = Integer.parseInt(req.params("from"));
+  int to = Integer.parseInt(req.params("to"));
+  int amount = Integer.parseInt(req.params("amount"));
+  LOG.info("performTransfer(from,to,amount)");
+  bank.performTransfer(from, to, amount);
+  return "OK";
+      });
           
     
     SignalHandler sh = new SignalHandler() {

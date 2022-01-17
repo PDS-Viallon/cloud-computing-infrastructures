@@ -61,7 +61,7 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase classname="eu.tsp.transactions.base.BaseBankTest" name="getBalanceWrongAccount" time="0.005"/>
+  <testcase classname="eu.tsp.transactions.base.BaseBankTest" name="performTransferWrongArgument" time="0.005"/>
+  <testcase classname="eu.tsp.transactions.base.BaseBankTest" name="getBalanceWrongAccount" time="0"/>
   <testcase classname="eu.tsp.transactions.base.BaseBankTest" name="simpleTransfer" time="0"/>
-  <testcase classname="eu.tsp.transactions.base.BaseBankTest" name="performTransferWrongArgument" time="0"/>
 </testsuite>

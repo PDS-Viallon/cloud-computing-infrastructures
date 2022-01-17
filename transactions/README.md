@@ -42,6 +42,9 @@ The call will be encoded as a path `/from/to/amount`, where `from` is the source
 To run the application locally, you may first package it with maven (`mvn package -DskipTests`).
 Then, use the command `java -cp target/transactions-1.0.jar:target/lib/* eu.tsp.transactions.Server` to execute the server.
 
+After executing `curl -X PUT 0.0.0.0:8080/1/2/100`
+We have `[qtp564130533-17] INFO eu.tsp.transactions.Server - performTransfer(from,to,amount)`
+
 ### 3. Containers and Further Testing
 
 The modern approach to run micro-services is to pack them into containers.
@@ -81,11 +84,11 @@ The directory `templates` contains the k8s templates of the banking system (both
 Import the credentials of the cluster, and create an appropriate context with the `kubectl` command.
 This last sequence of steps is recalled below:
 
-	GCP_PROJECT=$(gcloud config list --format='value(core.project)')  
-	ZONE_NAME="europe-west3-a"
-	CLUSTER_NAME="cloud-computing-course"
-    gcloud container clusters get-credentials ${CLUSTER_NAME} --zone ${ZONE_NAME}  
-    kubectl config set-context ${CLUSTER_NAME}  --cluster=gke_${GCP_PROJECT}_${ZONE_NAME}_${CLUSTER_NAME} --user=gke_${GCP_PROJECT}_${ZONE_NAME}_${CLUSTER_NAME}  
+    GCP_PROJECT=$(gcloud config list --format='value(core.project)')
+    ZONE_NAME="europe-west3-a"
+    CLUSTER_NAME="cloud-computing-course"
+    gcloud container clusters get-credentials ${CLUSTER_NAME} --zone ${ZONE_NAME}
+    kubectl config set-context ${CLUSTER_NAME}  --cluster=gke_${GCP_PROJECT}_${ZONE_NAME}_${CLUSTER_NAME} --user=gke_${GCP_PROJECT}_${ZONE_NAME}_${CLUSTER_NAME}
 
 **[Q34]** Export the Docker image in DockerHub.
 Test your application using the test suite available under `src/test/bin`.
@@ -96,7 +99,7 @@ In this final step, we implement the `DistribuetdBanking` class and distribute t
 To achieve this, we replace the `account` variable in `BaseBanking` with a distributed mapping.
 The mapping is implemented with [Infinispan](https://infinispan.org) (ISPN), a NoSQL transactional distributed storage from Red Hat.
 
-**[Q41]** To have an overview of ISPN, read the introduction (Section 1) of the  [documentation](http://infinispan.org/docs/stable/user_guide/user_guide.html).
+**[Q41]** To have an overview of ISPN, read the introduction (Section 1) of the [documentation](http://infinispan.org/docs/stable/user_guide/user_guide.html).
 Browse through the [online](http://www.infinispan.org/documentation) tutorials.
 At the light of the CAP impossibility result, where does this system stands?
 
@@ -104,7 +107,7 @@ A `Cache` in Infinispan implements a `ConcurrentMap` object as specified in the 
 Several operational modes are possible for the cache, synchronous, asynchronous, with or without transactions.
 Depending on the configuration parameters, a cache can be local to a Java application , or spread across several nodes.
 
-As a starter, we use a distributed asynchronous cache which runs in the same memory space as the application (embedded mode). 
+As a starter, we use a distributed asynchronous cache which runs in the same memory space as the application (embedded mode).
 This means that the `ConfigurationBuilder` to deploy the cache is written as follows
 
     ConfigurationBuilder builder = new ConfigurationBuilder();
@@ -117,17 +120,17 @@ This communication primitive is generally disable at cloud service providers (as
 As a consequence, we will use a data bucket in GCP for this task (further details are available [here](http://www.jgroups.org/manual/html/protlist.html#d0e5404)).
 
 **[Q42]** In GCP, create a bucket in the Storage menu.
-Notice that bucket names are global, and as a consequence you will have to use a unique name to avoid collisions. 
+Notice that bucket names are global, and as a consequence you will have to use a unique name to avoid collisions.
 Under `Settings`, make your bucket backward compatible and pick a pair `(key,secret)`.
 Update the file `exp.config` appropriately.
 
 Upon deploying the banking application in a container, `run.sh` picks the right JGroups configuraion with the help of the IP address of the container.
-The chosen file is renamed as `jgroups.xml` 
+The chosen file is renamed as `jgroups.xml`
 Hence, to assign a JGroups configuration in `DistributedBank`, you may use the following code:
 
     GlobalConfigurationBuilder gbuilder = GlobalConfigurationBuilder.defaultClusteredBuilder();
     gbuilder.transport().addProperty("configurationFile", "jgroups.xml");
-	
+
 **[Q43]** Create a variable `accounts` in `DistributedBank` backed by an Infinispan cache.
 Implement the `Bank` interface using `put` and `get` operations, as in `BaseBank`.
 Deploy the application over multiple nodes in GCP (e.g., 3).
@@ -140,9 +143,8 @@ Change the cache object to be transactional.
 This can be done programmatically as follows:
 
     builder.transaction().transactionMode(TransactionMode.TRANSACTIONAL).lockingMode(LockingMode.PESSIMISTIC);
-	
+
 Modify `performTransfer` to execute a transaction and check that your code is fully functional.
 
 **[OPT]** To make the system usable, it would be necessary to add data persistence.
 Another interesting option is to replicate accounts across several nodes to improve system availability.
-
