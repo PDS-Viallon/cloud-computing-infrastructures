@@ -95,6 +95,8 @@ This last sequence of steps is recalled below:
 **[Q34]** Export the Docker image in DockerHub.
 Test your application using the test suite available under `src/test/bin`.
 
+ ![](images_rapport/transaction.png)
+
 ### 4. Distributing the Application
 
 In this final step, we implement the `DistribuetdBanking` class and distribute the system across multiple nodes.
