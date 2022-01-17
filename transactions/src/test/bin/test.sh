@@ -4,8 +4,8 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 
 source "${DIR}/bank_functions.sh"
 
-N_ACCOUNTS=100
-N_OPS=1000
+N_ACCOUNTS=3
+N_OPS=10
 N_PAR=10
 
 random_transfer(){    
