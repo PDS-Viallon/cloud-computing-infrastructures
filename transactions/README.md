@@ -144,7 +144,9 @@ Test the application with the scripts `test.sh` and the flag `concurrent-run`.
 If you set a small number of bank accounts, what do you observe when concurrent operations take place?
 What is the name of this anomaly?
 
-![](images_rapport/cache.png)
+![](images_rapport/resultats.png)
+![](images_rapport/contention.png)
+
 
 **[Q44]** To fix the above problem, we use the transaction support provided by Infinispan.
 Change the cache object to be transactional.
