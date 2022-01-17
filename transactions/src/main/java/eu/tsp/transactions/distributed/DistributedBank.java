@@ -27,7 +27,7 @@ public class DistributedBank implements Bank{
   public DistributedBank(){
 
     GlobalConfigurationBuilder gbuilder = GlobalConfigurationBuilder.defaultClusteredBuilder();
-    //gbuilder.transport().addProperty("configurationFile", "default-jgroups-tcp.xml");
+    gbuilder.transport().addProperty("configurationFile", "jgroups.xml");
 
     ConfigurationBuilder builder = new ConfigurationBuilder();
     builder.clustering().cacheMode(CacheMode.DIST_SYNC);
