@@ -28,12 +28,12 @@ public class DistributedBank implements Bank{
   public DistributedBank(){
 
     GlobalConfigurationBuilder gbuilder = GlobalConfigurationBuilder.defaultClusteredBuilder();
-    gbuilder.transport().addProperty("configurationFile", "jgroups.xml");
+    //gbuilder.transport().addProperty("configurationFile", "default-jgroups-tcp.xml");
 
     ConfigurationBuilder builder = new ConfigurationBuilder();
     builder.clustering().cacheMode(CacheMode.DIST_SYNC);
 
-    DefaultCacheManager cacheManager = new DefaultCacheManager(gbuilder.build());
+    DefaultCacheManager cacheManager = new DefaultCacheManager(gbuilder.build(), builder.build());
     accounts = cacheManager.getCache();
   }
   
