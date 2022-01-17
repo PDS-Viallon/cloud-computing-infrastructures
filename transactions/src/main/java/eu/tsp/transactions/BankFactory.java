@@ -6,7 +6,7 @@ import eu.tsp.transactions.distributed.DistributedBank;
 public class BankFactory{
 
   public Bank createBank(){
-    return createBaseBank();
+    return createDistributedBank();
   }
   
   public Bank createBaseBank(){
