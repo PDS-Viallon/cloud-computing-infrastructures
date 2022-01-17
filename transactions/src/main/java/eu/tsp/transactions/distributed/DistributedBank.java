@@ -4,9 +4,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.List;
 import java.util.ArrayList;
 
-import javax.transaction.TransactionManager;
-import javax.transaction.RollbackException;
-import javax.transaction.NotSupportedException;
+import javax.transaction.*;
 import javax.transaction.xa.XAException;
 
 import org.infinispan.Cache;
@@ -21,10 +19,11 @@ import org.infinispan.transaction.TransactionMode;
 
 import eu.tsp.transactions.Bank;
 import eu.tsp.transactions.Account;
+import org.infinispan.transaction.tm.EmbeddedBaseTransactionManager;
 
 public class DistributedBank implements Bank{
   private Cache<Integer, Account> accounts;
-
+  TransactionManager tm;
   public DistributedBank(){
 
     GlobalConfigurationBuilder gbuilder = GlobalConfigurationBuilder.defaultClusteredBuilder();
@@ -33,8 +32,13 @@ public class DistributedBank implements Bank{
     ConfigurationBuilder builder = new ConfigurationBuilder();
     builder.clustering().cacheMode(CacheMode.DIST_SYNC);
 
+    builder.transaction().transactionMode(TransactionMode.TRANSACTIONAL).lockingMode(LockingMode.PESSIMISTIC);
+
+
     DefaultCacheManager cacheManager = new DefaultCacheManager(gbuilder.build(), builder.build());
     accounts = cacheManager.getCache();
+
+    tm = new EmbeddedBaseTransactionManager();
   }
   
   @Override
@@ -55,7 +59,8 @@ public class DistributedBank implements Bank{
   }
 
   @Override
-  public void performTransfer(int from, int to, int amount){
+  public void performTransfer(int from, int to, int amount) throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
+    tm.begin();
     if (!this.accounts.containsKey(from)) {
       throw new IllegalArgumentException("account not existing: "+from);
     }
@@ -69,6 +74,7 @@ public class DistributedBank implements Bank{
     
     fromAccount.setBalance(fromAccount.getBalance()-amount);
     toAccount.setBalance(toAccount.getBalance()+amount);
+    tm.commit();
   }
 
   @Override
