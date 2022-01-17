@@ -89,13 +89,13 @@ This last sequence of steps is recalled below:
     CLUSTER_NAME="cloud-computing-course"
     gcloud container clusters get-credentials ${CLUSTER_NAME} --zone ${ZONE_NAME}
     kubectl config set-context ${CLUSTER_NAME}  --cluster=gke_${GCP_PROJECT}_${ZONE_NAME}_${CLUSTER_NAME} --user=gke_${GCP_PROJECT}_${ZONE_NAME}_${CLUSTER_NAME}
-    
- ![](images_rapport/kube.png)
+
+![](images_rapport/kube.png)
 
 **[Q34]** Export the Docker image in DockerHub.
 Test your application using the test suite available under `src/test/bin`.
 
- ![](images_rapport/transaction.png)
+![](images_rapport/transaction.png)
 
 ### 4. Distributing the Application
 
@@ -106,6 +106,8 @@ The mapping is implemented with [Infinispan](https://infinispan.org) (ISPN), a N
 **[Q41]** To have an overview of ISPN, read the introduction (Section 1) of the [documentation](http://infinispan.org/docs/stable/user_guide/user_guide.html).
 Browse through the [online](http://www.infinispan.org/documentation) tutorials.
 At the light of the CAP impossibility result, where does this system stands?
+
+Infinispa enables Consistency and Availability sacrifying Partition-tolerance. However, Infinispan does have a Partition-tolerant, eventually-consistent mode in the pipeline.
 
 A `Cache` in Infinispan implements a `ConcurrentMap` object as specified in the `java.util.concurrent` package.
 Several operational modes are possible for the cache, synchronous, asynchronous, with or without transactions.
