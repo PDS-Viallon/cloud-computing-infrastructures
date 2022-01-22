@@ -147,6 +147,8 @@ What is the name of this anomaly?
 ![](images_rapport/resultats.png)
 ![](images_rapport/contention.png)
 
+We can observe that the total balance is not 0 as it should be. This reminds us of a *fuzzy read anomanly*, we observe a partial state at the end.
+
 
 **[Q44]** To fix the above problem, we use the transaction support provided by Infinispan.
 Change the cache object to be transactional.
