@@ -147,7 +147,6 @@ What is the name of this anomaly?
 ![](images_rapport/resultats.png)
 ![](images_rapport/contention.png)
 
-
 **[Q44]** To fix the above problem, we use the transaction support provided by Infinispan.
 Change the cache object to be transactional.
 This can be done programmatically as follows:
@@ -156,5 +155,30 @@ This can be done programmatically as follows:
 
 Modify `performTransfer` to execute a transaction and check that your code is fully functional.
 
+R:
+
+After adding the transaction config and modifying performTransfer() as follows:
+
+````java public void performTransfer(int from, int to, int amount) throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
+    tm.begin();
+    if (!this.accounts.containsKey(from)) {
+      throw new IllegalArgumentException("account not existing: "+from);
+    }
+
+    if (!this.accounts.containsKey(to)) {
+      throw new IllegalArgumentException("account not existing: "+to);
+    }
+
+    Account fromAccount = accounts.get(from);
+    Account toAccount = accounts.get(to);
+
+    fromAccount.setBalance(fromAccount.getBalance()-amount);
+    toAccount.setBalance(toAccount.getBalance()+amount);
+    tm.commit();
+  }```
+
+We were not able to make it work...
+
 **[OPT]** To make the system usable, it would be necessary to add data persistence.
 Another interesting option is to replicate accounts across several nodes to improve system availability.
+````
