@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: transactions-1
+  name: transactions-3
   labels:
     app: "transactions"
-    id: "1"
+    id: "3"
 spec:
   restartPolicy: Never
   containers:
