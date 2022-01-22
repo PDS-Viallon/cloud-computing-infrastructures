@@ -180,6 +180,7 @@ After adding the transaction config and modifying performTransfer() as follows:
   }```
 
 We were not able to make it work...
+```
 
 **[OPT]** To make the system usable, it would be necessary to add data persistence.
 Another interesting option is to replicate accounts across several nodes to improve system availability.
