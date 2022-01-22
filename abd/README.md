@@ -275,3 +275,33 @@ _(hint)_
 To code this part of the algorithm, we advice you to use a `Pair` object in the value of the `CompletableFuture` (this class is part of the apache-commons-lang3 library).
 The pair should store the value and its corresponding label computed during the first phase of a read.
 Both objects are used during the second phase of the read to repair an incomplete write.
+
+```java
+if (command instanceof ReadReply) {
+		replies.add(command);
+
+		if(replies.size()>=quorumSystem.quorumSize()){
+			int lmax = 0;
+			V vmax = null;
+			for(Command<V> rr : replies ){
+				if(lmax<rr.getTag()){
+					lmax = rr.getTag();
+					vmax = rr.getValue();
+				}
+			}
+			writeReplyCounter = 0;
+			for(Address address : quorumSystem.pickQuorum()){
+				send(address, factory.newWriteRequest(vmax, lmax));
+			}
+	 
+			try {
+				readrepair.get();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			pending.complete(vmax);
+		}
+	   
+	}
+```
