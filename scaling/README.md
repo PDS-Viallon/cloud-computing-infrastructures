@@ -241,6 +241,12 @@ Plot the service latency when 10 clients push concurrently 100 images.
 Make a plot of the time distribution.
 Do you think that this modification is satisfying?
 
+R:
+We corrected the file and ran `./parallel.sh localhost:8080 100 10`
+However when exposing a loadbalancing service on a deployment, it remains PENDING. On Minikube, it does not seem to work: https://stackoverflow.com/questions/44110876/kubernetes-service-external-ip-pending
+
+We think that with three replicas, the cluster will be able to answer clients quicker. Maybe not three times quicker because of syncronization time but somewhere around 1ms.
+
 **[Q]** _(optional)_ Analyze the performance of a single instance of Pdfmagic.
 Do you think that the idea of scaling-out the service was the right one?
 What is the underlying problem with the implementation of Pdfmagic?
