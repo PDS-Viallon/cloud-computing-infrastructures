@@ -158,7 +158,7 @@ When `execute` is called it should
 
 ```java
    public V read() {
-        readReplyList = new ArrayList<Command<V>>();
+        replies = new ArrayList<Command<V>>();
         return execute(factory.newReadRequest());
     }
 ```
