@@ -125,13 +125,20 @@ public class Majority {
     }
 
     public List<Address> pickQuorum(){
-        List<Address> members = new ArrayList<Address>();
-        List<Address> members_copy_shuffled = view.getMembers();
-        Collections.shuffle(members_copy_shuffled);
-        for (int i=0; i<quorumSize(); i++){
-            members.add(members_copy_shuffled.get(i));
+        List<Address> members = view.getMembers();
+        
+        ArrayList<Integer> randomIndex =new ArrayList<Integer>();
+        for(int i=0; i<members.size(); ++i){
+            randomIndex.add(i);
         }
-        return members;
+
+        Collections.shuffle(randomIndex);
+
+        ArrayList<Address> ret = new ArrayList<Address>();
+        for(int i : randomIndex){
+            ret.add(members.get(i));
+        }
+        return  ret;
     }
 }
 ```
