@@ -87,6 +87,7 @@ Then, connect to the JChannel and register the `RegisterImpl` instance as a list
         label = SystemClockFactory.getDatetime();
         max = label
         channel = new JChannel();
+	channel.setReceiver(this);
         channel.connect("ChatCluster");
     }
 ```
