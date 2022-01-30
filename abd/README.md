@@ -83,8 +83,8 @@ Then, connect to the JChannel and register the `RegisterImpl` instance as a list
     }
 
     public void init(boolean isWritable) throws Exception{
-        value = new V();
-        label = SystemClockFactory.getDatetime();
+        value = null;
+        label = 0;
         max = label
         channel = new JChannel();
 	channel.setReceiver(this);
