@@ -1,10 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: org.example.kvstore.StoreTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 3.054 sec <<< FAILURE!
-multipleStores(org.example.kvstore.StoreTest)  Time elapsed: 2.947 sec  <<< ERROR!
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 8.99 sec <<< FAILURE!
+baseOperations(org.example.kvstore.StoreTest)  Time elapsed: 2.78 sec  <<< ERROR!
 java.lang.NullPointerException
-	at org.example.kvstore.StoreTest.multipleStores(StoreTest.java:38)
+	at org.example.kvstore.StoreTest.baseOperations(StoreTest.java:14)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -35,9 +35,9 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-baseOperations(org.example.kvstore.StoreTest)  Time elapsed: 0.054 sec  <<< ERROR!
+multipleStores(org.example.kvstore.StoreTest)  Time elapsed: 6.156 sec  <<< ERROR!
 java.lang.NullPointerException
-	at org.example.kvstore.StoreTest.baseOperations(StoreTest.java:18)
+	at org.example.kvstore.StoreTest.multipleStores(StoreTest.java:36)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

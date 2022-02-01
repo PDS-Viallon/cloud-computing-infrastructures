@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="org.example.abd.RegisterTest" time="5.516" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="eu.tsp.transactions.base.BaseBankTest" time="0.008" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.13+8"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk/lib"/>
-    <property name="maven.multiModuleProjectDirectory" value="/home/adam/Cours/CSC5004/cloud-computing-infrastructures/abd"/>
+    <property name="maven.multiModuleProjectDirectory" value="/home/adam/Cours/CSC5004/cloud-computing-infrastructures/transactions"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://openjdk.java.net/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -14,7 +14,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/home/adam/Cours/CSC5004/cloud-computing-infrastructures/abd"/>
+    <property name="user.dir" value="/home/adam/Cours/CSC5004/cloud-computing-infrastructures/transactions"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="11.0.13+8"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
@@ -32,7 +32,7 @@
     <property name="java.class.version" value="55.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="5.16.4-arch1-1"/>
+    <property name="os.version" value="5.16.1-arch1-1"/>
     <property name="library.jansi.path" value="/opt/maven/lib/jansi-native"/>
     <property name="user.home" value="/home/adam"/>
     <property name="user.timezone" value="Europe/Paris"/>
@@ -43,7 +43,7 @@
     <property name="java.class.path" value="/opt/maven/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean install package"/>
     <property name="java.home" value="/usr/lib/jvm/java-11-openjdk"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -59,6 +59,7 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="org.example.abd.RegisterTest" name="sequential" time="3.172"/>
-  <testcase classname="org.example.abd.RegisterTest" name="concurrent" time="2.344"/>
+  <testcase classname="eu.tsp.transactions.base.BaseBankTest" name="getBalanceWrongAccount" time="0.008"/>
+  <testcase classname="eu.tsp.transactions.base.BaseBankTest" name="performTransferWrongArgument" time="0"/>
+  <testcase classname="eu.tsp.transactions.base.BaseBankTest" name="simpleTransfer" time="0"/>
 </testsuite>

@@ -35,8 +35,8 @@ public class Majority {
 
         ArrayList<Address> ret = new ArrayList<Address>();
 
-        for(int i : randomIndex){
-            ret.add(members.get(i));
+        for(int i =0; i< randomIndex.size()/2 +1; ++i){
+            ret.add(members.get(randomIndex.get(i)));
         }
 
 
