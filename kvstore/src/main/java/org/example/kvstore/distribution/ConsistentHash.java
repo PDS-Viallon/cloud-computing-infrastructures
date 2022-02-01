@@ -13,7 +13,8 @@ public class ConsistentHash implements Strategy{
     private Map<Integer,Address> addresses;
 
     public ConsistentHash(View view){
-
+        ring = new TreeSet<Integer>();
+        addresses = new HashMap<Integer,Address>();
         for(Address member : view.getMembers()){
             int hash = member.hashCode();
             ring.add(hash);
@@ -25,7 +26,7 @@ public class ConsistentHash implements Strategy{
     public Address lookup(Object key){
 
         int hash = key.hashCode();
-        int hash_address = ring.higher(hash);
+        Integer hash_address = ring.higher(hash);
 
         if(addresses.containsKey(hash_address)){
             return addresses.get(hash_address);

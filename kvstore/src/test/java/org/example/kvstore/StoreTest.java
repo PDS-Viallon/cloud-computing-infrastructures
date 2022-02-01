@@ -7,7 +7,7 @@ import java.util.Random;
 public class StoreTest {
 
     @Test
-    public void baseOperations() {
+    public void baseOperations() throws Exception {
         StoreManager manager = new StoreManager();
         Store<Integer, Integer> store = manager.newStore();
 
@@ -21,8 +21,8 @@ public class StoreTest {
     }
 
     @Test
-    public void multipleStores(){
-        int NCALLS = 1000;
+    public void multipleStores() throws Exception {
+        int NCALLS = 10;
         Random rand = new Random(System.nanoTime());
 
         StoreManager manager = new StoreManager();
@@ -37,5 +37,4 @@ public class StoreTest {
             assert rand.nextBoolean() ? store2.get(k).equals(v) : store3.get(k).equals(v);
         }
     }
-
 }

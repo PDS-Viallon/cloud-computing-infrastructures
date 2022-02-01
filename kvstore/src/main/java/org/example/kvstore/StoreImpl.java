@@ -30,53 +30,41 @@ public class StoreImpl<K,V> extends ReceiverAdapter implements Store<K,V> {
 
     public void init() throws Exception{
         channel=new JChannel(); // use the default config, udp.xml
-        channel.connect("ChatCluster");
         channel.setReceiver(this);
+        channel.connect("ChatCluster");
         data = new HashMap<K,V>();
+        factory = new CommandFactory<K,V>();
         workers = Executors.newCachedThreadPool();
         pending = new CompletableFuture<V>();
-        //viewAccepted(new View());
-
     }
 
-    public V get(K k) {
-        try {
-            return execute(factory.newGetCmd(k));
-        }catch(Exception e ){}
-        return null;
+    public synchronized V get(K k) throws Exception {
+
+        Address dest = strategy.lookup(k);
+        if(dest == this.channel.getAddress()) {
+            System.out.println("local get");
+            return data.get(k);
+        }
+
+        return execute(factory.newGetCmd(k));
     }
 
-    public V put(K k, V v) {
-        try {
-            return execute(factory.newPutCmd(k, v));
-        }catch(Exception e ){}
-        return null;
+    public synchronized V put(K k, V v) throws Exception {
+
+        Address dest = strategy.lookup(k);
+        if(dest == this.channel.getAddress()) {
+            System.out.println("local put");
+            return data.put(k,v);
+        }
+
+        return execute(factory.newPutCmd(k, v));
     }
 
-    public V localGet(K k) {return data.get(k);}
-
-    public V localPut(K k, V v) {return data.put(k,v);}
-
-    public V execute(Command cmd) {
+    public synchronized V execute(Command cmd) throws Exception {
         V v = null;
-
         Address dest = strategy.lookup(cmd.getKey());
-        System.out.println("BLIBLI");
-        if(dest!= channel.getAddress()){
-            System.out.println("HELLO");
-            synchronized (pending) {
-                try {
-                    send(dest, cmd);
-                    v = pending.get();
-                }catch(Exception e){}
-            }
-        }
-        else{
-            System.out.println("Salut");
-
-            if(cmd instanceof Put){v = localPut((K)cmd.getKey(), (V)cmd.getValue());}
-            if(cmd instanceof Get){v = localGet((K)cmd.getKey());}
-        }
+        send(dest, cmd);
+        v = pending.get();
         return v;
     }
 
@@ -87,11 +75,11 @@ public class StoreImpl<K,V> extends ReceiverAdapter implements Store<K,V> {
 
     @Override
     public void viewAccepted(View new_view) {
-        System.out.println("BLABLA");
         strategy = new ConsistentHash(new_view);
     }
+
     public void send(Address dst, Command command) throws Exception {
-        Message msg = new Message(dst, null, command);
+        Message msg = new Message(dst, this.channel.getAddress(), command);
         channel.send(msg);
     }
 
@@ -118,17 +106,16 @@ public class StoreImpl<K,V> extends ReceiverAdapter implements Store<K,V> {
                  v=put((K)command.getKey(), (V)command.getValue());
             }
             else if(command instanceof Get){
-                v= get((K) command.getKey());
+                v=get((K) command.getKey());
             }
-
 
             if(command instanceof Reply){
                 pending.complete((V)command.getValue());
                 return null;
             }
-            Command reply = factory.newReplyCmd((K)command.getKey(), v);
-            send(caller, reply);
 
+            Command reply = factory.newReplyCmd((K) command.getKey(), v);
+            send(caller, reply);
 
             return null;
         }
