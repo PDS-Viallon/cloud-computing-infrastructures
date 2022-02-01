@@ -152,7 +152,7 @@ public class RegisterImpl<V> extends ReceiverAdapter implements Register<V>{
         if (command instanceof WriteReply) {
             writeReplyCounter ++;
             if(writeReplyCounter >= quorumSystem.quorumSize()){
-                System.out.println("TEST");
+                //System.out.println("TEST");
                 // readrepair.complete(null);
                 pending.complete(null);
 

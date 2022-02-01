@@ -83,10 +83,11 @@ Then, connect to the JChannel and register the `RegisterImpl` instance as a list
     }
 
     public void init(boolean isWritable) throws Exception{
-        value = new V();
-        label = SystemClockFactory.getDatetime();
+        value = null;
+        label = 0;
         max = label
         channel = new JChannel();
+	channel.setReceiver(this);
         channel.connect("ChatCluster");
     }
 ```
@@ -124,13 +125,20 @@ public class Majority {
     }
 
     public List<Address> pickQuorum(){
-        List<Address> members = new ArrayList<Address>();
-        List<Address> members_copy_shuffled = view.getMembers();
-        Collections.shuffle(members_copy_shuffled);
-        for (int i=0; i<quorumSize(); i++){
-            members.add(members_copy_shuffled.get(i));
+        List<Address> members = view.getMembers();
+        
+        ArrayList<Integer> randomIndex =new ArrayList<Integer>();
+        for(int i=0; i<members.size(); ++i){
+            randomIndex.add(i);
         }
-        return members;
+
+        Collections.shuffle(randomIndex);
+
+        ArrayList<Address> ret = new ArrayList<Address>();
+        for(int i =0; i< randomIndex.size()/2 +1; ++i){
+            ret.add(members.get(randomIndex.get(i)));
+        }
+        return  ret;
     }
 }
 ```
@@ -150,7 +158,7 @@ When `execute` is called it should
 
 ```java
    public V read() {
-        readReplyList = new ArrayList<Command<V>>();
+        replies = new ArrayList<Command<V>>();
         return execute(factory.newReadRequest());
     }
 ```
